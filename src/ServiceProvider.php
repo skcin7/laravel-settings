@@ -28,12 +28,6 @@ class ServiceProvider extends BaseServiceProvider
 	{
 		// Bind the manager as a singleton on the container.
 		$this->app->singleton('skcin7\LaravelSettings\SettingsManager', function($app) {
-			// When the class has been resolved once, make sure that settings
-			// are saved when the application shuts down.
-            $app->shutdown(function($app) {
-                $app->make('skcin7\LaravelSettings\SettingStore')->save();
-            });
-			
 			/**
 			 * Construct the actual manager.
 			 */
