@@ -26,17 +26,13 @@ class ServiceProvider extends BaseServiceProvider
 	 */
 	public function register()
 	{
-		$method = version_compare(Application::VERSION, '5.2', '>=') ? 'singleton' : 'bindShared';
-
 		// Bind the manager as a singleton on the container.
-		$this->app->$method('skcin7\LaravelSettings\SettingsManager', function($app) {
+		$this->app->singleton('skcin7\LaravelSettings\SettingsManager', function($app) {
 			// When the class has been resolved once, make sure that settings
 			// are saved when the application shuts down.
-			if (version_compare(Application::VERSION, '5.0', '<')) {
-				$app->shutdown(function($app) {
-					$app->make('skcin7\LaravelSettings\SettingStore')->save();
-				});
-			}
+            $app->shutdown(function($app) {
+                $app->make('skcin7\LaravelSettings\SettingStore')->save();
+            });
 			
 			/**
 			 * Construct the actual manager.
@@ -51,9 +47,7 @@ class ServiceProvider extends BaseServiceProvider
 
 		$this->app->alias('skcin7\LaravelSettings\SettingStore', 'setting');
 
-		if (version_compare(Application::VERSION, '5.0', '>=')) {
-			$this->mergeConfigFrom(__DIR__ . '/config/config.php', 'settings');
-		}
+		$this->mergeConfigFrom(__DIR__ . '/config/config.php', 'settings');
 	}
 
 	/**
@@ -61,7 +55,6 @@ class ServiceProvider extends BaseServiceProvider
 	 */
 	public function boot()
 	{
-	    // https://laravel.com/docs/5.8/packages#configuration
         $this->publishes([
             __DIR__.'/config/config.php' => config_path('settings.php')
         ], 'config');
