@@ -10,6 +10,7 @@
 namespace skcin7\LaravelSettings;
 
 use \Illuminate\Support\Facades\Config;
+use Illuminate\Filesystem\Filesystem;
 
 class SettingStore
 {
@@ -41,7 +42,7 @@ class SettingStore
     public function __construct(Filesystem $files, $path = null)
     {
         $this->files = $files;
-        $this->setPath($path ?: storage_path() . '/settings.json');
+        $this->setPath($path ?: storage_path() . '/app/settings.json');
     }
 
     /**
