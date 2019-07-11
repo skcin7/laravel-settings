@@ -1,20 +1,19 @@
 <?php
-
 /**
- * Laravel 4 - Persistent Settings
- * 
- * @author   Andreas Lutro <anlutro@gmail.com>
+ * Laravel - Persistent Settings
+ *
+ * @author   Nick Morgan <nick@nicholas-morgan.com>
  * @license  http://opensource.org/licenses/MIT
- * @package  l4-settings
+ * @package  laravel-settings
  */
 
-namespace anlutro\LaravelSettings;
+namespace skcin7\LaravelSettings;
 
 use Closure;
-use anlutro\LaravelSettings\SettingStore;
+use skcin7\LaravelSettings\SettingStore;
 use Illuminate\Contracts\Routing\TerminableMiddleware;
 
-// https://github.com/anlutro/laravel-settings/issues/43
+// https://github.com/skcin7/laravel-settings/issues/43
 if (interface_exists('Illuminate\Contracts\Routing\TerminableMiddleware')) {
 	interface LaravelIsStupidMiddleware extends TerminableMiddleware {}
 } else {

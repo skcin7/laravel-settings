@@ -1,18 +1,20 @@
 <?php
 /**
- * Laravel 4 - Persistent Settings
- * 
- * @author   Andreas Lutro <anlutro@gmail.com>
+ * Laravel - Persistent Settings
+ *
+ * @author   Nick Morgan <nick@nicholas-morgan.com>
  * @license  http://opensource.org/licenses/MIT
- * @package  l4-settings
+ * @package  laravel-settings
  */
 
-namespace anlutro\LaravelSettings;
+namespace skcin7\LaravelSettings;
 
-class Facade extends \Illuminate\Support\Facades\Facade
+use Illuminate\Support\Facades\Facade as LaravelFacade;
+
+class Facade extends LaravelFacade
 {
 	protected static function getFacadeAccessor()
 	{
-		return 'anlutro\LaravelSettings\SettingsManager';
+		return 'skcin7\LaravelSettings\SettingsManager';
 	}
 }

@@ -1,13 +1,13 @@
 <?php
 /**
- * Laravel 4 - Persistent Settings
- * 
- * @author   Andreas Lutro <anlutro@gmail.com>
+ * Laravel - Persistent Settings
+ *
+ * @author   Nick Morgan <nick@nicholas-morgan.com>
  * @license  http://opensource.org/licenses/MIT
- * @package  l4-settings
+ * @package  laravel-settings
  */
 
-namespace anlutro\LaravelSettings;
+namespace skcin7\LaravelSettings;
 
 /**
  * Array utility functions.

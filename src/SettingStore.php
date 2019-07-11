@@ -1,24 +1,24 @@
 <?php
 /**
- * Laravel 4 - Persistent Settings
+ * Laravel - Persistent Settings
  * 
- * @author   Andreas Lutro <anlutro@gmail.com>
+ * @author   Nick Morgan <nick@nicholas-morgan.com>
  * @license  http://opensource.org/licenses/MIT
- * @package  l4-settings
+ * @package  laravel-settings
  */
 
-namespace anlutro\LaravelSettings;
+namespace skcin7\LaravelSettings;
 
 use \Illuminate\Support\Facades\Config;
 
-abstract class SettingStore
+class SettingStore
 {
 	/**
 	 * The settings data.
 	 *
 	 * @var array
 	 */
-	protected $data = array();
+	protected $data = [];
 
 	/**
 	 * Whether the store has changed since it was last loaded.
@@ -34,6 +34,38 @@ abstract class SettingStore
 	 */
 	protected $loaded = false;
 
+    /**
+     * @param \Illuminate\Filesystem\Filesystem $files
+     * @param string $path
+     */
+    public function __construct(Filesystem $files, $path = null)
+    {
+        $this->files = $files;
+        $this->setPath($path ?: storage_path() . '/settings.json');
+    }
+
+    /**
+     * Set the path for the JSON file.
+     *
+     * @param string $path
+     */
+    public function setPath($path)
+    {
+        // If the file does not already exist, we will attempt to create it.
+        if(! $this->files->exists($path)) {
+            $result = $this->files->put($path, '{}');
+            if ($result === false) {
+                throw new \InvalidArgumentException("Could not write to $path.");
+            }
+        }
+
+        if(! $this->files->isWritable($path)) {
+            throw new \InvalidArgumentException("$path is not writable.");
+        }
+
+        $this->path = $path;
+    }
+
 	/**
 	 * Get a specific key from the settings data.
 	 *
@@ -44,8 +76,8 @@ abstract class SettingStore
 	 */
 	public function get($key, $default = null)
 	{
-		if ($default === NULL && !is_array($key)) {
-			$default = Config::get('settings.defaults.'.$key);
+		if($default === null && ! is_array($key)) {
+			$default = Config::get('settings.defaults.' . $key);
 		}
         
 		$this->load();
@@ -148,7 +180,7 @@ abstract class SettingStore
 	 */
 	public function load($force = false)
 	{
-		if (!$this->loaded || $force) {
+		if(! $this->loaded || $force) {
 			$this->data = $this->read();
 			$this->loaded = true;
 		}
@@ -159,14 +191,34 @@ abstract class SettingStore
 	 *
 	 * @return array
 	 */
-	abstract protected function read();
+    protected function read()
+    {
+        $contents = $this->files->get($this->path);
+
+        $data = json_decode($contents, true);
+
+        if($data === null) {
+            throw new \RuntimeException("Invalid JSON in {$this->path}");
+        }
+
+        return $data;
+    }
 
 	/**
 	 * Write the data into the store.
 	 *
 	 * @param  array  $data
-	 *
 	 * @return void
 	 */
-	abstract protected function write(array $data);
+    protected function write(array $data)
+    {
+        if($data) {
+            $contents = json_encode($data, JSON_PRETTY_PRINT);
+        }
+        else {
+            $contents = '{}';
+        }
+
+        $this->files->put($this->path, $contents);
+    }
 }

@@ -1,13 +1,13 @@
 <?php
 /**
- * Laravel 4 - Persistent Settings
- * 
- * @author   Andreas Lutro <anlutro@gmail.com>
+ * Laravel - Persistent Settings
+ *
+ * @author   Nick Morgan <nick@nicholas-morgan.com>
  * @license  http://opensource.org/licenses/MIT
- * @package  l4-settings
+ * @package  laravel-settings
  */
 
-namespace anlutro\LaravelSettings;
+namespace skcin7\LaravelSettings;
 
 use Illuminate\Support\Manager;
 use Illuminate\Foundation\Application;
@@ -16,43 +16,22 @@ class SettingsManager extends Manager
 {
 	public function getDefaultDriver()
 	{
-		return $this->getConfig('anlutro/l4-settings::store');
+		return $this->getConfig('skcin7/laravel-settings::store');
 	}
 
 	public function createJsonDriver()
 	{
-		$path = $this->getConfig('anlutro/l4-settings::path');
+		$path = $this->getConfig('skcin7/laravel-settings::path');
 
-		return new JsonSettingStore($this->app['files'], $path);
+		return new SettingStore($this->app['files'], $path);
 	}
 
-	public function createDatabaseDriver()
-	{
-		$connectionName = $this->getConfig('anlutro/l4-settings::connection');
-		$connection = $this->app['db']->connection($connectionName);
-		$table = $this->getConfig('anlutro/l4-settings::table');
-		$keyColumn = $this->getConfig('anlutro/l4-settings::keyColumn');
-		$valueColumn = $this->getConfig('anlutro/l4-settings::valueColumn');
+    protected function getConfig($key)
+    {
+        $key = str_replace('skcin7/laravel-settings::', 'settings.', $key);
 
-		return new DatabaseSettingStore($connection, $table, $keyColumn, $valueColumn);
-	}
+        return $this->app['config']->get($key);
+    }
 
-	public function createMemoryDriver()
-	{
-		return new MemorySettingStore();
-	}
 
-	public function createArrayDriver()
-	{
-		return $this->createMemoryDriver();
-	}
-
-	protected function getConfig($key)
-	{
-		if (version_compare(Application::VERSION, '5.0', '>=')) {
-			$key = str_replace('anlutro/l4-settings::', 'settings.', $key);
-		}
-
-		return $this->app['config']->get($key);
-	}
 }

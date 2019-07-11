@@ -14,34 +14,28 @@ return [
 	*/
 	'store' => 'json',
 
-	/*
-	|--------------------------------------------------------------------------
-	| JSON Store
-	|--------------------------------------------------------------------------
-	|
-	| If the store is set to "json", settings are stored in the defined
-	| file path in JSON format. Use full path to file.
-	|
-	*/
-	'path' => storage_path().'/settings.json',
+    /*
+    |--------------------------------------------------------------------------
+    | JSON Store
+    |--------------------------------------------------------------------------
+    |
+    | If the store is set to "json", settings are stored in the defined
+    | file path in JSON format. Use full path to file.
+    |
+    */
+    'path' => storage_path().'/app/settings.json',
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
-	| Database Store
+	| Store Using Pretty Print
 	|--------------------------------------------------------------------------
 	|
-	| The settings are stored in the defined file path in JSON format.
-	| Use full path to JSON file.
+	| If this is true, the saved JSON file will always be saved with easily
+    | human-readable formatting.  Otherwise, all saved JSON will be
+    | condensed to a single line.
 	|
 	*/
-	// If set to null, the default connection will be used.
-	'connection' => null,
-	// Name of the table used.
-	'table' => 'settings',
-	// If you want to use custom column names in database store you could 
-	// set them in this configuration
-	'keyColumn' => 'key',
-	'valueColumn' => 'value',
+    'pretty_print' => true,
     
     /*
     |--------------------------------------------------------------------------
@@ -53,7 +47,7 @@ return [
     | hardcoding the same defaults in all 'Settings::get()' calls
     |
     */
-    'defaults' => [
-        'foo' => 'bar',
-    ]
+//    'defaults' => [
+//        'foo' => 'bar',
+//    ]
 ];

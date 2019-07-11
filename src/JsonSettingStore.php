@@ -1,13 +1,13 @@
 <?php
 /**
- * Laravel 4 - Persistent Settings
- * 
- * @author   Andreas Lutro <anlutro@gmail.com>
+ * Laravel - Persistent Settings
+ *
+ * @author   Nick Morgan <nick@nicholas-morgan.com>
  * @license  http://opensource.org/licenses/MIT
- * @package  l4-settings
+ * @package  laravel-settings
  */
 
-namespace anlutro\LaravelSettings;
+namespace skcin7\LaravelSettings;
 
 use Illuminate\Filesystem\Filesystem;
 
@@ -15,7 +15,7 @@ class JsonSettingStore extends SettingStore
 {
 	/**
 	 * @param \Illuminate\Filesystem\Filesystem $files
-	 * @param string                           $path
+	 * @param string $path
 	 */
 	public function __construct(Filesystem $files, $path = null)
 	{
@@ -31,14 +31,14 @@ class JsonSettingStore extends SettingStore
 	public function setPath($path)
 	{
 		// If the file does not already exist, we will attempt to create it.
-		if (!$this->files->exists($path)) {
+		if(! $this->files->exists($path)) {
 			$result = $this->files->put($path, '{}');
 			if ($result === false) {
 				throw new \InvalidArgumentException("Could not write to $path.");
 			}
 		}
 
-		if (!$this->files->isWritable($path)) {
+		if(! $this->files->isWritable($path)) {
 			throw new \InvalidArgumentException("$path is not writable.");
 		}
 
@@ -66,9 +66,10 @@ class JsonSettingStore extends SettingStore
 	 */
 	protected function write(array $data)
 	{
-		if ($data) {
-			$contents = json_encode($data);
-		} else {
+		if($data) {
+			$contents = json_encode($data, JSON_PRETTY_PRINT);
+		}
+		else {
 			$contents = '{}';
 		}
 
