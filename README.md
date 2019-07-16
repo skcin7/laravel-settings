@@ -34,7 +34,7 @@ It's super easy.
 
 2. Publish the configuration file: `php artisan vendor:publish --provider="skcin7\LaravelSettings\ServiceProvider"`. After publishing, edit this configuration file (which will be located in `config/settings.php`) to your specific configuration needs.
 
-3. Add the `Setting` facade to the aliases array in `config/app.php`: `Setting => skcin7\LaravelSettings\Facade::class`.
+After this, both the `Setting` facade and `setting()` helper will be available to you for accessing this package.
 
 ### Contribution Guidelines
 
