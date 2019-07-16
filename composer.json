@@ -1,6 +1,6 @@
 {
     "name": "skcin7/laravel-settings",
-    "description": "Persistent settings in Laravel. This package is based on anlutro/l4-settings by Andreas Lutro - credit to him for that package which this one is based off of.",
+    "description": "Laravel package to achieve persistent settings easily in your Laravel project.",
     "license": "MIT",
     "authors": [
         {
