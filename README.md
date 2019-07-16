@@ -21,7 +21,7 @@ I'm actively using this package in my own Laravel projects for managing backups.
 
 ### Requirements
 
-- PHP 5.5
+- PHP 5.4
 - Laravel
 
 ### Installation
@@ -34,7 +34,7 @@ It's super easy.
 
 2. Publish the configuration file: `php artisan vendor:publish --provider="skcin7\LaravelSettings\ServiceProvider"`. After publishing, edit this configuration file (which will be located in `config/settings.php`) to your specific configuration needs.
 
-3. Add the `Setting` facade to the aliases array in `config/app.php`: `Setting => skcin7\LaravelSettings\Facade::class`.,
+3. Add the `Setting` facade to the aliases array in `config/app.php`: `Setting => skcin7\LaravelSettings\Facade::class`.
 
 ### Contribution Guidelines
 

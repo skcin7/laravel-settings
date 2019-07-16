@@ -1,43 +1,48 @@
 {
-    "name": "skcin7/laravel-settings",
-    "description": "Laravel package to achieve persistent settings easily in your Laravel project.",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Nick Morgan",
-            "email": "nick@nicholas-morgan.com"
-        }
+  "name": "skcin7/laravel-settings",
+  "type": "package",
+  "description": "Laravel package to achieve persistent settings easily in your Laravel project.",
+  "version": "0.0.1-dev",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Nick Morgan",
+      "email": "nick@nicholas-morgan.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "illuminate/support": ">=4.1 <6.0"
+  },
+  "suggest": {
+    "illuminate/filesystem": "Save settings to a JSON file."
+  },
+  "require-dev": {
+    "phpunit/phpunit": ">=4.8, <6",
+    "mockery/mockery": "0.9.*",
+    "laravel/framework": ">=4.1 <6.0"
+  },
+  "autoload": {
+    "files": [
+      "src/helpers.php"
     ],
-    "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": ">=4.1 <6.0"
+    "psr-4": {
+      "skcin7\\LaravelSettings\\": "src/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.0.1-dev"
     },
-    "suggest": {
-        "illuminate/filesystem": "Save settings to a JSON file."
-    },
-    "require-dev": {
-        "phpunit/phpunit": ">=4.8, <6",
-        "mockery/mockery": "0.9.*",
-        "laravel/framework": ">=4.1 <6.0"
-    },
-    "autoload": {
-        "files": [
-            "src/helpers.php"
-        ],
-        "psr-4": {
-            "skcin7\\LaravelSettings\\": "src/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "aliases": {
-                "Setting": "skcin7\\LaravelSettings\\Facade"
-            },
-            "providers": [
-                "skcin7\\LaravelSettings\\ServiceProvider"
-            ]
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "laravel": {
+      "aliases": {
+        "Setting": "skcin7\\LaravelSettings\\Facade"
+      },
+      "providers": [
+        "skcin7\\LaravelSettings\\ServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
